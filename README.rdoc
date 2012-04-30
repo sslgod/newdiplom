@@ -1,261 +1,121 @@
-== Welcome to Rails
-
-Rails is a web-application framework that includes everything needed to create
-database-backed web applications according to the Model-View-Control pattern.
-
-This pattern splits the view (also called the presentation) into "dumb"
-templates that are primarily responsible for inserting pre-built data in between
-HTML tags. The model contains the "smart" domain objects (such as Account,
-Product, Person, Post) that holds all the business logic and knows how to
-persist themselves to a database. The controller handles the incoming requests
-(such as Save New Account, Update Product, Show Post) by manipulating the model
-and directing data to the view.
-
-In Rails, the model is handled by what's called an object-relational mapping
-layer entitled Active Record. This layer allows you to present the data from
-database rows as objects and embellish these data objects with business logic
-methods. You can read more about Active Record in
-link:files/vendor/rails/activerecord/README.html.
-
-The controller and view are handled by the Action Pack, which handles both
-layers by its two parts: Action View and Action Controller. These two layers
-are bundled in a single package due to their heavy interdependence. This is
-unlike the relationship between the Active Record and Action Pack that is much
-more separate. Each of these packages can be used independently outside of
-Rails. You can read more about Action Pack in
-link:files/vendor/rails/actionpack/README.html.
+Инструкция по работе с сервисом
+Электронный календарный план
 
 
-== Getting Started
-
-1. At the command prompt, create a new Rails application:
-       <tt>rails new myapp</tt> (where <tt>myapp</tt> is the application name)
-
-2. Change directory to <tt>myapp</tt> and start the web server:
-       <tt>cd myapp; rails server</tt> (run with --help for options)
-
-3. Go to http://localhost:3000/ and you'll see:
-       "Welcome aboard: You're riding Ruby on Rails!"
-
-4. Follow the guidelines to start developing your application. You can find
-the following resources handy:
-
-* The Getting Started Guide: http://guides.rubyonrails.org/getting_started.html
-* Ruby on Rails Tutorial Book: http://www.railstutorial.org/
+1.  Что это такое?
+2.  Как стать пользователем?
+3.  Как создать новый документ?
+4.  Как изменить документ?
+5.  Как распечатать документ?
 
 
-== Debugging Rails
+Что это такое
 
-Sometimes your application goes wrong. Fortunately there are a lot of tools that
-will help you debug it and get it back on the rails.
+Электронный календарный план – это сервис, который позволяет пользователю писать Календарный планы преподаваемых дисциплин не в бумажном виде, а в электронном, предлагая знакомый интерфейс и удобные функции  хранения, изменения и вывода на печать.
 
-First area to check is the application log files. Have "tail -f" commands
-running on the server.log and development.log. Rails will automatically display
-debugging and runtime information to these files. Debugging info will also be
-shown in the browser on requests from 127.0.0.1.
+Зачем это нужно:
+- при составлении документа первый раз вручную затраты времени и бумаги больше, чем при использовании компьютерных технологий (так как внести исправления, даже существенные, в электронном виде гораздо проще, быстрее и не требуется переделывания всего документа в случае добавления всего одной строчки);
+- при переиздании документа вручную – затраты еще больше, так в электронном виде для переиздания плана без изменений необходимо просто нажать кнопку печати;
+- все ваши документы и все их версии хранятся в одном месте и всегда под рукой (начиная от заполнения журнала, заканчивая предоставления их различным комиссиям).
 
-You can also log your own messages directly into the log file from your code
-using the Ruby logger class from inside your controllers. Example:
+Сервис доступен как из локальной сети колледжа, так и через Интернет, поэтому пользователь,  имеете доступ ко всем своим  документам из любой точки мира, где есть Интернет (в том числе с работы и из дома).
 
-  class WeblogController < ActionController::Base
-    def destroy
-      @weblog = Weblog.find(params[:id])
-      @weblog.destroy
-      logger.info("#{Time.now} Destroyed Weblog ID ##{@weblog.id}!")
-    end
-  end
+Клиентом является любой Интернет-браузер. Теоретически для работы Вы можете использовать любой интернет-браузер, но мы настоятельно НЕ рекомендуем использовать Internet Explorer, рекомендованные браузеры Mozilla Firefox, Google Chrome, Chomium, Safari (все эти браузеры бесплатны).
 
-The result will be a message in your log file along the lines of:
-
-  Mon Oct 08 14:22:29 +1000 2007 Destroyed Weblog ID #1!
-
-More information on how to use the logger is at http://www.ruby-doc.org/core/
-
-Also, Ruby documentation can be found at http://www.ruby-lang.org/. There are
-several books available online as well:
-
-* Programming Ruby: http://www.ruby-doc.org/docs/ProgrammingRuby/ (Pickaxe)
-* Learn to Program: http://pine.fm/LearnToProgram/ (a beginners guide)
-
-These two books will bring you up to speed on the Ruby language and also on
-programming in general.
+Для того, чтобы воспользоваться сервисом нужно в адресной строке браузера ввести его адрес www.kplan.spkvtk.ru и Вы попадете на главную страницу.
 
 
-== Debugger
+Как стать пользователем
 
-Debugger support is available through the debugger command when you start your
-Mongrel or WEBrick server with --debugger. This means that you can break out of
-execution at any point in the code, investigate and change the model, and then,
-resume execution! You need to install ruby-debug to run the server in debugging
-mode. With gems, use <tt>sudo gem install ruby-debug</tt>. Example:
+Для того, чтобы пользоваться сервисом Вам нужна так называемая Учетная запись. Суть ее заключается в том, что Вы сообщаете нам три вещи:
+- имя пользователя («логин», только английскими буквами и арабскими цифрами) по которому Вы будете входить на сайт (ваш логин может быть отличен от фамилии, например Иванова И.И. может иметь логин petr по кличке ее домашнего питомца);
+- пароль (только английскими буквами и арабскими цифрами), секретное слово, сообщать его посторонним категорически запрещено: зная Ваш логин и пароль можно удалить всю сделанную вами работу. В качестве пароля лучше всего использовать некоторое слово, с заглавной буквы в сочетании с числом: допустим кодовое слово «стул», а последняя цифра вашего номера телефона 31, следовательно получаем пароль Stul31, который является относительно безопасным (в случае если Вы его никому не скажете). Использование пароля Stul31 не рекомендуется;
+- вашу фамилию и инициалы (русскими буквами), лучше всего в формате Фамилия И.О. (эти данные будут автоматически подставлены в создаваемые вами календарные планы). 
 
-  class WeblogController < ActionController::Base
-    def index
-      @posts = Post.all
-      debugger
-    end
-  end
+На данный момент функции смены этих данных нет, но возможность изменить любые данные, включая забытый пароль есть. Для этого свяжитесь с разработчиком по почте nia@spkvtk.ru (опишите в письме вашу проблему и она будет решена).
 
-So the controller will accept the action, run the first line, then present you
-with a IRB prompt in the server window. Here you can do things like:
-
-  >> @posts.inspect
-  => "[#<Post:0x14a6be8
-          @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>,
-       #<Post:0x14a6620
-          @attributes={"title"=>"Rails", "body"=>"Only ten..", "id"=>"2"}>]"
-  >> @posts.first.title = "hello from a debugger"
-  => "hello from a debugger"
-
-...and even better, you can examine how your runtime objects actually work:
-
-  >> f = @posts.first
-  => #<Post:0x13630c4 @attributes={"title"=>nil, "body"=>nil, "id"=>"1"}>
-  >> f.
-  Display all 152 possibilities? (y or n)
-
-Finally, when you're ready to resume execution, you can enter "cont".
+После того, как Вы нам их сообщите, мы будем знать, что у нашей системы теперь есть пользователь с таким-то логином и паролем и его зовут следующим образом. Войдя в систему, Вы сможете создавать электронные Календарные планы, хранить их в системе и печатать.
 
 
-== Console
+Процедура регистрации
 
-The console is a Ruby shell, which allows you to interact with your
-application's domain model. Here you'll have all parts of the application
-configured, just like it is when the application is running. You can inspect
-domain models, change values, and save to the database. Starting the script
-without arguments will launch it in the development environment.
+Зайдите на сайт проекта.
 
-To start the console, run <tt>rails console</tt> from the application
-directory.
+На данный момент мы не знаем кто Вы. Для того, чтобы стать нашим пользователем Вам необходимо Зарегистрироваться (справа Вы найдете большую кнопку «Зарегистрироваться»). По нажатии кнопки, откроется форма регистрации. Заполните форму, как описано выше:
+- придумайте и введите логин;
+- введите пароль (для того, чтобы никто не увидел его, при вводе каждый символ в нем заменяется «*»);
+- повторите Ваш пароль, чтобы мы убедились, что Вы его запомнили и сразу не забудете (пожалуйста, не записывайте Ваш пароль, а если все-таки записали, не держите его на видном месте!);
+- введите вашу фамилию и инициалы;
+- если Вам сказали номер вашей предметной комиссии, введите его, если Вы его не знаете – не вводите ничего.
 
-Options:
+Нажмите кнопку Готово. Здесь возможна ситуация, когда введенные Вами данные не верны - поля с ними будут подсвечены розовым цветом. Что значит «данные не верны»:
+- введенный вами логин должен быть уникальным  - в системе не может быть двух пользователей с одинаковым логином, поэтому, если кто-то до Вас уже зарегистрировался под именем petr, то Вы можете воспользоваться «petr1», но не «petr», поэтому если поле логина подсвечено – выберете другой логин;
+- введенные вами пароли – Ваш пароль и его подтверждение – должны совпадать, поэтому, если они не совпадают, оба поля пароля будет подсвечены розовым.
 
-* Passing the <tt>-s, --sandbox</tt> argument will rollback any modifications
-  made to the database.
-* Passing an environment name as an argument will load the corresponding
-  environment. Example: <tt>rails console production</tt>.
+В этом случае Вам нужно исправить введенную информацию так, чтобы она удовлетворяла требованиям системы и снова нажать кнопку Готово.  Страница перезагрузится и, если никаких сообщений об ошибке нет, поздравляем, Вы стали пользователем системы!
 
-To reload your controllers and models after launching the console run
-<tt>reload!</tt>
+ 
 
-More information about irb can be found at:
-link:http://www.rubycentral.org/pickaxe/irb.html
+Процедура регистрации разовая – больше регистрироваться Вам не придется, так как мы теперь знает, что у нас есть пользователь Иванова И.И., у которой логин petr и пароль (а какой у нас пароль мы знать не будем, так как храниться он будет в зашифрованном виде, не поддающимся дешифровке).
 
 
-== dbconsole
+Процедура входа
 
-You can go to the command line of your database directly through <tt>rails
-dbconsole</tt>. You would be connected to the database with the credentials
-defined in database.yml. Starting the script without arguments will connect you
-to the development database. Passing an argument will connect you to a different
-database, like <tt>rails dbconsole production</tt>. Currently works for MySQL,
-PostgreSQL and SQLite 3.
+Теперь, когда Вы – наш пользователь, Вы, каждый раз перед тем как пользоваться системой, будете ей представляться: для этого есть блок входа, куда необходимо ввести Ваш логин и пароль.
 
-== Description of Contents
+Здесь возможна ситуация, когда введенные вами данные не верны:
+- если Вы ошиблись при вводе логина – соответствующее поле будет подсвечено розовым, Вам необходимо будет заново ввести логин и пароль;
+- если Вы ошиблись при вводе пароля – поле также будет подсвечено, и необходимо будет ввести заново только  пароль.
 
-The default directory structure of a generated Ruby on Rails application:
+Если все данные верны, Вы попадете в Ваш личный кабинет. Если Вы захотите закончить работу – просто закройте вкладку браузера (или окно). При повторном заходе на сайт (даже через секунду), вам необходимо будет снова представиться.
 
-  |-- app
-  |   |-- assets
-  |       |-- images
-  |       |-- javascripts
-  |       `-- stylesheets
-  |   |-- controllers
-  |   |-- helpers
-  |   |-- mailers
-  |   |-- models
-  |   `-- views
-  |       `-- layouts
-  |-- config
-  |   |-- environments
-  |   |-- initializers
-  |   `-- locales
-  |-- db
-  |-- doc
-  |-- lib
-  |   `-- tasks
-  |-- log
-  |-- public
-  |-- script
-  |-- test
-  |   |-- fixtures
-  |   |-- functional
-  |   |-- integration
-  |   |-- performance
-  |   `-- unit
-  |-- tmp
-  |   |-- cache
-  |   |-- pids
-  |   |-- sessions
-  |   `-- sockets
-  `-- vendor
-      |-- assets
-          `-- stylesheets
-      `-- plugins
 
-app
-  Holds all the code that's specific to this particular application.
 
-app/assets
-  Contains subdirectories for images, stylesheets, and JavaScript files.
+Как создать новый документ?
 
-app/controllers
-  Holds controllers that should be named like weblogs_controller.rb for
-  automated URL mapping. All controllers should descend from
-  ApplicationController which itself descends from ActionController::Base.
+Теперь, когда Вы наш пользователь, Вы можете получить доступ к своему личному кабинету. Давайте выясним, что же Вы теперь можете делать.
 
-app/models
-  Holds models that should be named like post.rb. Models descend from
-  ActiveRecord::Base by default.
+Основное назначение нашей системы – это перевод составления календарного плана из бумажного вида в электронный. Как пользователь мы можете создавать, изменять же созданные и печатать Календарные планы.
 
-app/views
-  Holds the template files for the view that should be named like
-  weblogs/index.html.erb for the WeblogsController#index action. All views use
-  eRuby syntax by default.
 
-app/views/layouts
-  Holds the template files for layouts to be used with views. This models the
-  common header/footer method of wrapping views. In your views, define a layout
-  using the <tt>layout :default</tt> and create a file named default.html.erb.
-  Inside default.html.erb, call <% yield %> to render the view using this
-  layout.
+Создание документа
 
-app/helpers
-  Holds view helpers that should be named like weblogs_helper.rb. These are
-  generated for you automatically when using generators for controllers.
-  Helpers can be used to wrap functionality for your views into methods.
+В своем кабинете справа Вы можете легко найти кнопку Создание нового календарного плана. Нажав ее, Вы перейдете на страницу заполнения титульного листа, который должен быть Вам знаком и узнаваем. Вы можете не заполнять некоторые поля (или даже все).  Дальнейшие ваши действия могут быть:  Сохранить и вернуться в кабинет или Продолжить (сохранить и перейти к следующему шагу). 
 
-config
-  Configuration files for the Rails environment, the routing map, the database,
-  and other dependencies.
+ 
 
-db
-  Contains the database schema in schema.rb. db/migrate contains all the
-  sequence of Migrations for your schema.
+ 
 
-doc
-  This directory is where your application documentation will be stored when
-  generated using <tt>rake doc:app</tt>
+Следующий шаг – заполнение списка литературы (вы можете также ничего не вводить, а можете вернуться Назад к титульному листу). Каждое поле имеет ограничение на количество вводимых символов (необходимое для вывода на печать), отнеситесь к нему, как к концу строки -  поставьте знак переноса при необходимости и продолжите со следующей строки (как понять что Вы дошли до ограничения? – текст перестанет вводиться). После того, как Вы заполнили литературу можете перейти Назад к титульному листу или Дальше к заполнению информации о занятиях. 
 
-lib
-  Application specific libraries. Basically, any kind of custom code that
-  doesn't belong under controllers, models, or helpers. This directory is in
-  the load path.
+ 
 
-public
-  The directory available for the web server. Also contains the dispatchers and the
-  default HTML files. This should be set as the DOCUMENT_ROOT of your web
-  server.
+После перехода к вводу основного содержимого Календарного плана Вы увидите целую страницу, которая повторяет свой бумажный аналог. Вводить данные можно в любые поля, необязательно последовательно – Вы можете пропускать любое количество строк и полей, оставляя их пустыми. На каждое поле также введены ограничения (так в поля с номерами занятий и недель и с количеством часов нельзя ввести больше 5 символов, что достаточно логично). Ограничения повторяют естественную длину строки, и так же как в случае с бумажным вариантом, все что не поместилось нужно перенести на следующую строку.
 
-script
-  Helper scripts for automation and generation.
+ 
 
-test
-  Unit and functional tests along with fixtures. When using the rails generate
-  command, template test files will be generated for you and placed in this
-  directory.
+Если один лист полностью заполнен, ниже Вы найдете кнопку Добавить лист. Вы можете добавить любое количеств листов. После завершения работы Вы можете вернуться к Литературе или Завершить работу и перейти в свой кабинет.
 
-vendor
-  External libraries that the application depends on. Also includes the plugins
-  subdirectory. If the app has frozen rails, those gems also go here, under
-  vendor/rails/. This directory is in the load path.
+В кабинете будет список всех созданных вами документов, отсортированный по дате создания. Их можно создать неограниченное количество. Каждый из них Вы можете распечатать, удалить или изменить его содержимое.
+
+
+Как изменить документ
+
+В любой момент Вы можете добавить, изменить или удалить из вашего Календарного плана любую информацию.
+
+Для того, чтобы изменить документ, просто кликните по его названию в списке документов в Вашем кабинете. Важно понимать, что каждый раз когда Вы изменяете уже созданный документ, создается новый документ, с таким же содержимым! То есть если Вы создали Календарный план дисциплины с названием «1», а затем решили его изменить, то в вашем кабинете будет уже два документа с по предмету «1», отличаться они будут датой создания (ну и содержимым, если Вы его измените). Такая система нужна в первую очередь для того, чтобы Вы всегда могли вернуться к предыдущей версии. Ненужные или устаревшие версии можно удалить (но не стоит делать этого сразу – Ваш документ занимает 1-2 килобайта на диске в несколько терабайт (1ТБ=1'048’576 КБ)). Вы можете не бояться вносить изменения, зная, что у Вас всегда есть предыдущая версия, к которой можно вернуться. 
+
+Редактирование документа аналогично его созданию (те же возможности и те же шаги).
+
+Если Вы точно уверены, что конкретный документ Вам не нужен, Вы можете его удалить (функция Удалить доступна справа от названия плана). Помните, что при удалении, восстановить документ нельзя!
+
+
+Как распечатать документ
+
+В Вашем личном кабинете  рядом с каждым документом указана дата его создания и доступные операции. Одна из них – печать. Выбрав эту функцию Вы попадаете на страницу печати. Где есть инструкция, она за несколько простых шагов позволит Вам распечатать готовый документ в формате брошюры. Алгоритм следующий: 
+- вы нажимаете на кнопку печати первой стороны, что находится слева, настраиваете принтер на печать альбомных (не книжных) листов, печатаете;
+- перекладываете распечатанную стопку листов, не разбирая, не переворачивая и не вращая,  в лоток принтера для подачи бумаги;
+- нажимаете кнопку печати второй стороны, аналогично настраиваете печать альбомных страниц, печатаете.
+Распечатанную стопку необходимо аккуратно согнуть пополам, прошить при необходимости, и поставить Вашу подпись на предпоследней странице (Список литературы), рядом с фамилией.
+
+ 
