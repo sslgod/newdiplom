@@ -2,25 +2,18 @@
 
 class PlanController < ApplicationController
   def index
-    
     if signed_in?
      redirect_to cabinet_path
     else
     @user=User.new
-    respond_to do |format|
-      format.html 
-      format.js 
-    end
     end
   end
   
   def createuser  #создание пользователя
-    
     @user = User.new(params[:user])
     if @user.save
       render 'index'
     else
-      @title = "Sign up"
       render 'index'
     end
 
@@ -32,31 +25,29 @@ class PlanController < ApplicationController
                            params[:session][:pas])
       if user.nil?
     flash.now[:error] = "Invalid email/password combination."
-      @title = "Sign in"
       render 'new'
       else
       sign_in user
       render 'index'
       end
-end
+  end
 
   def cabinet
-    @user=User.find_by_id(current_user.id) # это заглушка, сдесь данные текущего пользователя
+    @user=User.find(current_user.id)
     @cabinet_plans=@user.kplans.find(:all)
   end
   
-  def createtitle
-   
-      @ktitle = @kplan.ktitls.new(params[:ktitle])
-      if @ktitle.save
-        kp_body(@ktitle.id)
-      else
-        @error = "Что-то пошло не так, и сохранить не удалось."
-        render kp_titl
-      end
-    
-    
-  end
+ # def createtitle
+ #  
+ #     @ktitle = @kplan.ktitls.new(params[:ktitle])
+ #     if @ktitle.save
+ #       kp_body(@ktitle.id)
+ #     else
+ #       @error = "Что-то пошло не так, и сохранить не удалось."
+ #       render kp_titl
+ #     end  
+ # end
+  
   def create?(model)
     model.save
   end
@@ -67,10 +58,8 @@ end
     @kplan = @user.kplans.new(:predmet_comissia => @user.predmet_comissia)
     
     @ktitle= @kplan.ktitls.new
-    @ktitle['user']= @user.name   #это заглушки, сдесь данные текущего пользователя
+    @ktitle['user']= @user.name 
     @ktitle["ch_all"]=@ktitle.ch_zan.to_i + @ktitle.ch_labrab.to_i + @ktitle.ch_kprtk.to_i
-    
-  
   end
 
   def kp_lit
@@ -103,6 +92,78 @@ end
     range=pages_need/2
     range.times do |numb_srt|
       @print_second<<[numb_srt+2, ((pages_need-numb_srt)>pages_real ? 0 :  pages_need-numb_srt)]
+    end
+  end
+
+  def prasing_lib
+  end
+
+  def test_db
+    b=1
+    a=Ktitl.new
+      a.kplan_id=1
+      a.pregmet="Очень длинное нзвание предмета, которое не уместилось в одну строку"
+      a.spec="230105"
+      a.group="244, 245"
+      a.kurs="III"
+      a.semestr="3"
+      a.god="2012"
+      a.uchregd="Методическим советом СПКВТК"
+      a.ch_ned=17
+      a.ch_zan=40
+      a.ch_labrab=20
+      a.ch_kprtk=12
+      a.ch_smr=20
+    a.save
+    (1..20).each do |i|
+      if i.odd?
+        a=Klit.new
+        a.kplan_id=1
+        a.nomer_srt=i
+        a.literatura="Описание источника из которого был взят для материала лекций"
+        a.save
+      else
+        a=Klit.new
+        a.kplan_id=1
+        a.nomer_srt=i
+        a.literatura="продолжение описание литературы, которое не уместилось в первую строку"
+        a.save
+      end
+    end
+    Kbody.all.each do |a|
+      if a.nomer_str.odd?
+        a.nomer_uroka=b+(a.nomer_str/2)+a.nomer_page-1
+        a.tema_zaniatia="#{a.nomer_page} - #{a.nomer_str} - #{a.nomer_uroka} Здесь написана тема занятия - первая строка"
+        a.nomer_nedeli=a.nomer_uroka/2+1
+        a.kolvo_chasov=rand((3)+1)*2
+        a.vid_zaniatia="Вид занятия #{a.nomer_page}#{a.nomer_str}"
+        a.nagl_posobie="Наглядное посо-"
+        a.zadano="Задано студен-"
+        c=rand(2)*2
+        if c>0
+          a.samrab_casov=c.to_s
+          a.samrab_zadanie="Задание для са-"
+        else
+          a.samrab_casov=""
+          a.samrab_zadanie=""
+        end
+      else
+        a.nomer_uroka=""
+        a.tema_zaniatia="а дальше идет вторая строка текста, продолжение #{a.nomer_page} - #{a.nomer_str}"
+        a.nomer_nedeli=""
+        a.kolvo_chasov=""
+        a.vid_zaniatia=""
+        a.nagl_posobie="бие для #{a.nomer_page} - #{a.nomer_str}"
+        a.zadano="там надом #{a.nomer_page} - #{a.nomer_str}"
+        a.samrab_casov=""
+        c=Kbody.where("nomer_page =?", a.nomer_page).find_by_nomer_str(a.nomer_str-1).samrab_casov
+        if c.empty?
+          a.samrab_zadanie=""
+        else
+          a.samrab_zadanie="мостоятельной#{a.nomer_str}"
+        end
+      end
+      a.save
     end
   end
 

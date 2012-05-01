@@ -49,15 +49,15 @@ p {
 }
 
 .all_first {
-	width:1300px; 
-	height:280px; 
+	width:1250px;  
 	margin: 20px auto 20px auto; 
 	float: none;
 }
 
 .first_blok {font-size:12pt; 
 	text-align:center; 
-	width:300px;
+	width:330px; 
+	height:240px;
 	padding:10px; 
 	margin: 0 40px 0 0;
 	border: 5px solid gray; 
@@ -105,7 +105,7 @@ p {
 .first_blok .button_print:hover {background-color:#AAAAAA;}
 
 
-.info_blok {font-size:12pt; text-align:center; width:800px;
+.info_blok {font-size:12pt; text-align:center; width:800px; min-height:240px;
 	padding:10px; margin:0;
 	border: 5px solid gray; border-radius:20px; 
 	-moz-border-radius:20px; -webkit-border-radius:20px;
@@ -118,26 +118,38 @@ p {
 .info_blok p {text-align: justify; margin: 0px 10px 20px 10px; 
 }
 
-.info_blok .button_to input {font-size:16pt; color:white; 
-	background: #444444; width:250px;
+.info_blok #add_welcome {font-size:16pt; color:white; display: block;
+	background: #444444; width:250px; text-decoration:none;
+	border: #D3D3D3 3px outset;;
 	border-radius:5px;  -moz-border-radius:5px; -webkit-border-radius:5px; 
 	margin: 0px 5px 20px 10px; padding: 20px 10px; float: right;
 }
 
-.info_blok .button_to input:hover {background-color:#AAAAAA;
+.info_blok #add_welcome:hover {background-color:#AAAAAA;
 }
 
-.reg_block {font-size:12pt; text-align:center; width:800px;
-	padding:10px; margin:0 auto;
-	border: 5px solid gray; border-radius:20px; 
-	-moz-border-radius:20px; -webkit-border-radius:20px;
-	box-shadow: 0 0 10px rgba(0,0,0,0.6);
+#info_to_hide { 
+	display: block;
 }
 
-.reg_block h1 {font-size:24pt; margin: 14px 0 30px 0;
+#show_welcome { 
+	display: none;
 }
 
-.reg_block input {font-size:12pt; color: #444444; width:200px; margin: 10px 10px; padding: 3px;
+
+.reg_block h1 {font-size:24pt; margin:15px 0;
+}
+
+.reg_block table {
+	margin: 0 auto;
+	width:460px;
+}
+
+.reg_block td .data{
+	width:50%
+}
+
+.reg_block input {font-size:12pt; color: #444444; width:200px; margin: 10px 0; padding: 3px;
 }
 
 .reg_block input:hover{background-color:#DDDDDD
@@ -152,14 +164,6 @@ p {
 }
 
 .reg_block .button_submit:hover {background: #AAAAAA;
-}
-
-.reg_block .i1 {
-	margin-left: 43px;
-}
-
-.reg_block .i2 {
-	margin-left: 165px;
 }
 
 .reg_block .i3 {

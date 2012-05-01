@@ -1,15 +1,32 @@
-#encoding: utf-8
 
-	<div class="reg_block">
+	<div class="reg_block" id="show_welcome">
 		<%=form_for :user, :url => { :action => "createuser" } do |f|  %>
 		
 			<h1>Регистрация нового пользователя</h1>
-			<p>Ваша фамилия и инициалы <%=f.text_field :name%></p>
-			<p>Удобный для вас логин <%=f.text_field :nik , :maxlength => 20, :class=>"i1" %></p>
-			<p>Пароль<%=f.password_field :pas , :class=> "i2"%></p>
-			<p>Подтверждение пароля<%=f.password_field :pas_confirmation, :class=>"i1" %> </p>
-			<p>Номер предметной комиссии <%=f.text_field :predmet_comissia , :maxlength => 2,  :class=>"i3"%> (только если вам он известен)</p>
-			<%= f.submit "Готово" , :class=>"button_submit", %>
+			<table>
+				<tr>
+					<td>Ваша фамилия и инициалы</td>
+					<td><%=f.text_field :name%></td>
+				</tr>
+				<tr>
+					<td>Удобный для вас логин </td>
+					<td><%=f.text_field :nik , :maxlength => 20, :class=>"i1" %></td>
+				</tr>
+				<tr>
+					<td>Пароль</td>
+					<td><%=f.password_field :pas , :class=> "i2"%></td>
+				</tr>
+				<tr>
+					<td>Подтверждение пароля</td>
+					<td><%=f.password_field :pas_confirmation, :class=>"i1" %></td>
+				</tr>
+				<tr>
+					<td>Номер предметной комиссии </td>
+					<td><%=f.text_field :predmet_comissia , :maxlength => 2,  :class=>"i3"%> (если вам он известен)</td>
+				</tr>
+			</table>
+			<%= f.submit "Готово" , :class=>"button_submit" %>
+			
 		<%end%>
 	</div>
 

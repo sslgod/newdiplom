@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
 has_many :kplans
 has_many :ktitls
 
- attr_accessible(:nik, :pas, :pas_confirmation, :salt)
+ attr_accessible(:nik, :pas, :pas_confirmation, :salt, :name, :predmet_comissia)
 
   validates :nik,  :presence => true,
 	           :uniqueness => true	    

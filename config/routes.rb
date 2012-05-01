@@ -1,9 +1,5 @@
 KalendarniPlan::Application.routes.draw do
 
-  get "user/new"
-
-  get "users/new"
-
   root :to => 'plan#index'
   match 'cabinet' => 'plan#cabinet'
   match 'title'=> 'plan#kp_titl'
@@ -13,8 +9,6 @@ KalendarniPlan::Application.routes.draw do
   match 'createuser'=> 'plan#createuser',:via => [:post]
   match 'createsession'=> 'plan#createsession',:via => [:post]
   match 'createtitle'=> 'plan#createtitle',:via => [:post]
-
-  
 
   #get "plan/whoareyou"
   

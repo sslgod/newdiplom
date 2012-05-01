@@ -4,17 +4,15 @@
   <title>Электронный Календарный План</title>
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= stylesheet_link_tag    "kplan_css", :media => "screen" %>
-  <%= javascript_include_tag "application" %>
+  <%= javascript_include_tag  %>
   <%= csrf_meta_tags %>
+  <%= javascript_include_tag 'jquery', 'kplan_js', "application"%>
 </head>
 <body>
 	<header class=usual_header >
 		<a id=header_logo> Календарный план </a>
 		<a href=about> О сервисе </a>
 		<a href=help> Помощь </a>
-		<% if signed_in? %>
-		<%= link_to 'Кабинет', cabinet_path %>
-	      <% end %>
 	</header>
 
 <%= yield %>

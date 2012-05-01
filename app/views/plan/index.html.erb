@@ -5,27 +5,13 @@
 	<%=form_for :session , :url => { :action => "createsession" } do |f|%>
 		<h1>Вход для зарегистрированных пользователей</h1>
 		<p>Логин <%=f.text_field :nik , :maxlength => 20, :class=>"i1" %></p>
-		<p>Пароль <%=f.text_field :pas%></p>
+		<p>Пароль <%=f.password_field :pas%></p>
 		<%= f.submit "Войти" , :class=>"button_submit"%>
-		
 	<%end%>
   </div>
- <% if signed_in? %>
-   <p>kdlklk</p>
-  <% end %>
   <div class="info_blok">
-	<h1>Электронный календарный план</h1>
-	<p></p>
-	<p>
-		Система, которая позволит вам создавать, моифицировать и централизованно хранить все ваши календарные планы, а также в два легких шага поможет распечатать готовый к сшиванию документ.</p>
-	<p> <%=button_to 'Зарегистрироваться', :id=>"add_welcome"%>
-		Работать с сервисом могут только зарегистрированые пользователи, поэтому, если вы не имеете аккаунта, пожалуйста, зарегистрируйтесь.
-	</p>
+		<%=render :partial=>'info'%>
+		<%=render :partial=>'welcome'%>
   </div>
+
 </div>
-
-<div class="all_first" id="show_welcome"> <%=render :partial=>'welcome'%></div>
-
-
-
-
