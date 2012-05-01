@@ -1,0 +1,38 @@
+#encoding: utf-8
+
+<div class="all_first">
+    <% for page_nomer in (1..(@page_count==0 ? 1 : @page_count)) %>
+      <div class="all_body">
+        <%kbody_page=@kbody.where("nomer_page = ?", page_nomer)%>
+        <table>
+          <tr>
+            <th class="d1">№ урока</th> 
+            <th class="d2">Наименование разделов и тем</th> 
+            <th class="d3">Номер недeли</th>
+            <th class="d4">Кол-во часов</th> 
+            <th class="d5">Вид занятий</th> 
+            <th class="d5">Наглядные пособия</th>
+            <th class="d5">Задание для студентов</th> 
+            <th width="195px" colspan=2>Самостоятельная работа</th>
+          </tr>
+          <%(1..26).each do |str_nomer|%>
+            <% kbody_now=@kbody_new[str_nomer-1]%>
+            <% kbody_old= @page_count==0 ? kbody_now : kbody_page.find_by_nomer_str(str_nomer)%>
+            <tr>
+            <%=form_for :kbody_now do |f|%>
+              <td> <%= f.text_field :nomer_uroka , :maxlength => 4, :class=>"i1", :value=> "#{kbody_old.nomer_uroka.to_s}" %> </td> 
+              <td> <%= f.text_field :tema_zaniatia , :maxlength => 46, :class=>"i2", :value=> "#{kbody_old.tema_zaniatia.to_s}" %> </td> 
+              <td> <%= f.text_field :nomer_nedeli  , :maxlength => 5, :class=>"i3", :value=> "#{kbody_old.nomer_nedeli.to_s }" %> </td>  
+              <td> <%= f.text_field :kolvo_chasov , :maxlength => 5, :class=>"i3", :value=> "#{kbody_old.kolvo_chasov.to_s}" %> </td> 
+              <td> <%= f.text_field :vid_zaniatia , :maxlength => 15, :class=>"i4", :value=> "#{kbody_old.vid_zaniatia.to_s}" %> </td>
+              <td> <%= f.text_field :nagl_posobie , :maxlength => 15, :class=>"i4", :value=> "#{kbody_old.nagl_posobie.to_s}" %> </td> 
+              <td> <%= f.text_field :zadano , :maxlength => 15, :class=>"i4", :value=> "#{kbody_old.zadano}" %> </td> 
+              <td> <%= f.text_field :samrab_casov , :maxlength => 4, :class=>"i1", :value=> "#{kbody_old.samrab_casov.to_s}" %> </td> 
+              <td> <%= f.text_field :samrab_zadanie , :maxlength => 15, :class=>"i4", :value=> "#{kbody_old.samrab_zadanie.to_s}" %> </td> 
+            <%end%>
+            </tr>
+          <% end %>
+        </table>
+      </div>  
+    <%end%>
+</div>

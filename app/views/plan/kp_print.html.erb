@@ -1,0 +1,270 @@
+#encoding: utf-8
+
+<div class="all_first">
+	<div class="first_blok">
+		<a class="button_print"> Печать <br>ПЕРВОЙ стороны</a>
+		<br>
+		<a class="button_print"> Печать <br>ВТОРОЙ стороны</a>
+  </div>
+   <div class="info_blok">
+	<h1>Пять простых шагов </h1>
+	<p></p>
+	<p>1. Нажмите кнопку "Печать первой стороны"</p>
+	<p>2. Поля со всех сторон должны быть по 1 см, ориентация листа - альбомная</p>
+	<p>3. Не разделяя напечатанную пачку листов, переверните ее другой стороной верх</p>
+	<p>4. Нажмите кнопку "Печать второй стороны"</p>
+	<p>5. Готово!</p>
+  </div>
+</div>
+
+
+<div class="all_print">
+	<div class="first_print">
+		<table class="one_list">
+			<tr>
+				<td class="one_page" id="empty">© СПКВТК <%=Date.today.year%></td>
+				<td class="center"> </td>
+				<td class="one_page" id="title_page">
+					<div id="header">
+            			<p> СЕРГИЕВО-ПОСАДСКИЙ </p>
+            			<p> КИНОВИДЕОТЕХНИЧЕСКИЙ КОЛЛЕДЖ </p>
+      				</div>
+      					<table id="mini">
+        					<tr>
+            					<td>
+                  					<p> УТВЕРЖДАЮ </p>
+                  					<p> Зам.директора по учебной работе </p> 
+                  					<p> <big>                                           </big></p>
+                  					<p> «<big>       </big>» <big>                   </big> 20<big>      </big> г.</p>
+            					</td>
+            					<td>
+					                <p> Рассмотрено на заседании </p>
+					                <p> предметной комиссии </p>
+					                <p> «<big>       </big>» <big>                   </big> 20<big>      </big> г.</p>
+					                <p> Протокол № <big>                         </big> </p>
+					                <p>Председатель предметной комиссии</p>
+					                <p> <big>                                                     </big></p>
+					            </td>
+        					</tr>
+      					</table>
+		      		<p id="title"> КАЛЕНДАРНЫЙ ПЛАН </p>
+		      		<table class="left">
+			            <tr><td class="discpl_name"> учебных занятий по предмету</td>
+			            	<td class="discpl_data"><%= @ktitle.pregmet%> </td></tr>
+			        </table>
+			        <table class="left">    
+			            <tr><td class="data_name"> для специальности</td>
+			            	<td class="data"><%= @ktitle.spec%></td></tr>
+			            <tr><td class="data_name"> Преподаватель</td>
+			            	<td class="data"><%= @ktitle.user%></td></tr>
+			            <tr><td class="data_name"> Группы</td>
+			            	<td class="data"><%= @ktitle.group%></td></tr>
+			        </table>
+		            <table class="center">
+		                <tr><td class="data_name">Курс </td>
+			            	<td class="data"><%= @ktitle.kurs%></td></tr>
+		                <tr><td class="data_name">Семестр</td>
+			            	<td class="data"><%= @ktitle.semestr%></td></tr>
+		                <tr><td class="data_name">Учебный год</td>
+			            	<td class="data"><%= @ktitle.god%></td></tr>
+		            </table>
+		            <table class="center" id="dop">
+		                <tr><td class="discpl_name">Составлено в соответствии с программой, утвержденной</td></tr>
+		                <tr><td class="discpl_data"><%= @ktitle.uchregd%></td></tr>
+		            </table>
+		            <table class="midle" id="i1">
+		                <tr><td class="data_name" > Число недель </td>
+		                	<td class="data"><%= @ktitle.ch_ned%></td><tr> 
+		             </table>
+		            <table class="midle" id="i2">
+		                <tr><td class="data_name" > Занятия на уроках</td>
+		                <td class="data"><%= @ktitle.ch_zan%></td><td>час.</td><tr> 
+		                <tr><td class="data_name" > Лабораторные работы</td>
+		                <td class="data"><%= @ktitle.ch_labrab%></td><td>чаc.</td><tr> 
+		                <tr><td class="data_name"> Курсовое проектирование</td>
+		                <td class="data"><%= @ktitle.ch_kprtk%></td><td>час.</td><tr> 
+		             </table>
+		              <table class="midle" id="i3">
+		                <tr><td class="data_name"> Всего</td>
+		                <td class="data"><%= @ktitle.ch_all%></td><td>час.</td><tr> 
+		             </table>
+		              <table class="midle" id="i4">
+		                <tr><td class="data_name"> Самостоятельная нагрузка студентов</td>
+		                <td class="data"><%= @ktitle.ch_smr%></td><td>час.</td><tr> 
+		             </table>
+				</td>
+			</tr>
+		</table>
+
+		<table class="one_list">
+			<tr>
+			<td class="one_page">
+				<table>
+					<tr><th>СПИСОК  ЛИТЕРАТУРЫ</th></tr>
+					<%(1..25).each do |one_string|%>
+						<tr> <td class="lit"><%=@klib.find_by_nomer_srt(one_string).present? ? @klib.find_by_nomer_srt(one_string).literatura : " "%> </td></tr>
+					<%end%>
+					<tr><td> <%=@ktitle.user%> <big>/______________________ /</big></td></tr>
+				</table>
+			</td>
+			<td class="center"> </td>
+			<td class="one_page">
+				<table >
+					<tr>
+			            <th class="d5">Вид занятий</th> 
+			            <th class="d5">Наглядные пособия</th>
+			            <th class="d5">Задание для студентов</th> 
+			            <th colspan=2>Самостоятельная работа</th>
+          			</tr>
+          			<%page= @kbody.where("nomer_page=1")%>
+          			<%(1..26).each do |one_string|%>
+          				<%string= page.find_by_nomer_str(one_string).present? ? page.find_by_nomer_str(one_string) : @kbody_0 %>
+          				<tr>
+          					<td> <%=areyounil(string.vid_zaniatia)%>  </td>
+          					<td> <%=areyounil(string.nagl_posobie)%></td>
+          					<td> <%=areyounil(string.zadano)%></td>
+          					<td> <%=areyounil(string.samrab_casov)%></td>
+          					<td class="d5"> <%=areyounil(string.samrab_zadanie)%></td>
+          				</tr>
+          			<%end%>
+				</table>
+			</td>
+		</tr>
+		</table>
+
+		<%@print_first.each do |one_list|%>
+			<table class="one_list">
+				<tr>
+					<td class="one_page"> 
+						<table >
+							<tr>
+					            <th class="d1">№ урока</th> 
+					            <th>Наименование разделов и тем</th> 
+					            <th class="d3">Номер недeли</th>
+					            <th class="d4">Кол-во часов</th> 
+		          			</tr>
+          					<%page= @kbody.where("nomer_page=?", one_list[0])%>
+          					<%(1..26).each do |one_string|%>
+          						<%string= page.find_by_nomer_str(one_string).present? ? page.find_by_nomer_str(one_string) : @kbody_0 %>
+          						<tr>
+		          					<td><%=areyounil(string.nomer_uroka)%>  </td>
+		          					<td  class="d2"><%=areyounil(string.tema_zaniatia)%></td>
+		          					<td> <%=areyounil(string.nomer_nedeli)%></td>
+		          					<td> <%=areyounil(string.kolvo_chasov)%></td>
+		          				</tr>
+		          			<%end%>
+						</table>
+					</td>
+					<td class="center"> </td>
+					<td class="one_page"> 
+						<table >
+							<tr>
+					            <th class="d5">Вид занятий</th> 
+					            <th class="d5">Наглядные пособия</th>
+					            <th class="d5">Задание для студентов</th> 
+					            <th colspan=2>Самостоятельная работа</th>
+		          			</tr>
+          					<%page= @kbody.where("nomer_page=?", one_list[1])%>
+          					<%(1..26).each do |one_string|%>
+          						<%string= page.find_by_nomer_str(one_string).present? ? page.find_by_nomer_str(one_string) : @kbody_0 %>
+          						<tr>
+		          					<td> <%=areyounil(string.vid_zaniatia)%>  </td>
+		          					<td> <%=areyounil(string.nagl_posobie)%></td>
+		          					<td> <%=areyounil(string.zadano)%></td>
+		          					<td> <%=areyounil(string.samrab_casov)%></td>
+		          					<td> <%=areyounil(string.samrab_zadanie)%></td>
+		          				</tr>
+		          			<%end%>
+						</table>
+					</td>
+				</tr>
+			</table>
+		<%end%>
+	</div>
+
+	<div class="second_print">
+		<table class="one_list">
+			<tr>
+				<td class="one_page">
+						<table >
+							<tr>
+					            <th class="d1">№ урока</th> 
+					            <th >Наименование разделов и тем</th> 
+					            <th class="d3">Номер недeли</th>
+					            <th class="d4">Кол-во часов</th> 
+		          			</tr>
+          					<%page= @kbody.where("nomer_page=1")%>
+          					<%(1..26).each do |one_string|%>
+          						<%string= page.find_by_nomer_str(one_string).present? ? page.find_by_nomer_str(one_string) : @kbody_0 %>
+          						<tr>
+		          					<td> <%=areyounil(string.nomer_uroka)%>  </td>
+		          					<td class="d2"> <%=areyounil(string.tema_zaniatia)%></td>
+		          					<td> <%=areyounil(string.nomer_nedeli)%></td>
+		          					<td> <%=areyounil(string.kolvo_chasov)%></td>
+		          				</tr>
+		          			<%end%>
+						</table>
+				</td>
+				<td class="center"> </td>
+				<td class="one_page">
+					<table>
+						<caption> КОНТРОЛЬ <br> выполнения календарного плана <br> председателем предметной комиссии </caption>
+						<tr> <th>Дата</th><th>Замечание</th><th>Подпись</th></tr>
+						<%23.times do%>
+							<tr> <td></td><td></td><td></td></tr>
+						<%end%>
+					</table>
+				</td>
+			</tr>
+		</table>
+		<%@print_second.each do |one_list|%>
+			<table class="one_list">
+				<tr>
+					<td class="one_page"> 
+						<table >
+							<tr>
+					            <th class="d1">№ урока</th> 
+					            <th>Наименование разделов и тем</th> 
+					            <th class="d3">Номер недeли</th>
+					            <th class="d4">Кол-во часов</th> 
+		          			</tr>
+          					<%page= @kbody.where("nomer_page=?", one_list[0])%>
+          					<%(1..26).each do |one_string|%>
+          						<%string= page.find_by_nomer_str(one_string).present? ? page.find_by_nomer_str(one_string) : @kbody_0 %>
+          						<tr>
+		          					<td> <%=areyounil(string.nomer_uroka)%>  </td>
+		          					<td class="d2"> <%=areyounil(string.tema_zaniatia)%></td>
+		          					<td> <%=areyounil(string.nomer_nedeli)%></td>
+		          					<td> <%=areyounil(string.kolvo_chasov)%></td>
+		          				</tr>
+		          			<%end%>
+						</table>
+					</td>
+					<td class="center"> </td>
+					<td class="one_page"> 
+						<table >
+							<tr>
+					            <th class="d5">Вид занятий</th> 
+					            <th class="d5">Наглядные пособия</th>
+					            <th class="d5">Задание для студентов</th> 
+					            <th colspan=2>Самостоятельная работа</th>
+		          			</tr>
+          					<%page= @kbody.where("nomer_page=?", one_list[1])%>
+          					<%(1..26).each do |one_string|%>
+          						<%string= page.find_by_nomer_str(one_string).present? ? page.find_by_nomer_str(one_string) : @kbody_0 %>
+          						<tr>
+		          					<td> <%=areyounil(string.vid_zaniatia)%>  </td>
+		          					<td> <%=areyounil(string.nagl_posobie)%></td>
+		          					<td> <%=areyounil(string.zadano)%></td>
+		          					<td> <%=areyounil(string.samrab_casov)%></td>
+		          					<td> <%=areyounil(string.samrab_zadanie)%></td>
+		          				</tr>
+		          			<%end%>
+						</table>
+					</td>
+				</tr>
+			</table>
+		<%end%>
+	</div>
+
+</div>

@@ -1,0 +1,22 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user_id: 
+  pcomissia: 1
+  plan_id: 1
+
+two:
+  user_id: 
+  pcomissia: 1
+  plan_id: 1
+# == Schema Information
+#
+# Table name: kplans
+#
+#  id               :integer         not null, primary key
+#  user_id          :integer
+#  predmet_comissia :integer
+#  created_at       :datetime        not null
+#  updated_at       :datetime        not null
+#
+

@@ -1,0 +1,21 @@
+#encoding: utf-8
+
+<div class="all_first">
+
+   <div class="all_title">
+       <div id="header">
+            <p> СПИСОК  ЛИТЕРАТУРЫ </p>
+       </div>
+
+            <%(1..24).each do |str_nomer| %>
+              <%klib_str=@klib_new[str_nomer-1]%>
+            	<%= form_for :klib_str do |f|%>
+                <%klib_value=@klib.find_by_nomer_srt(str_nomer)%>
+            		<%= f.text_field :literatura , :maxlength => 68, :class=>"i17" , 
+            			:value=> "#{klib_value.nil? ? " " : klib_value.literatura}" %> 
+            	<%end%>
+            <%end%>
+        <p> . </p>
+   </div>
+</div>
+#

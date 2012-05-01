@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  kplan_id: 1
+  n_srt: 1
+  literatura: MyString
+
+two:
+  kplan_id: 1
+  n_srt: 1
+  literatura: MyString
+# == Schema Information
+#
+# Table name: klits
+#
+#  id         :integer         not null, primary key
+#  kplan_id   :integer
+#  nomer_srt  :integer
+#  literatura :string(255)
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

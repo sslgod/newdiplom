@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Электронный Календарный План</title>
+  <%= stylesheet_link_tag    "application", :media => "all" %>
+  <%= stylesheet_link_tag    "kplan_css", :media => "screen" %>
+  <%= javascript_include_tag "application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<header class=usual_header >
+		<a id=header_logo> Календарный план </a>
+		<a href=about> О сервисе </a>
+		<a href=help> Помощь </a>
+		<% if signed_in? %>
+		<%= link_to 'Кабинет', cabinet_path %>
+	      <% end %>
+	</header>
+
+<%= yield %>
+
+</body>
+</html>
