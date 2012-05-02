@@ -3,7 +3,7 @@
 module ApplicationHelper
 	
 	def format_plan_data(data)
-		"#{data.day} #{data_month[data.month]} #{data.year} в #{data.hour+3}.#{data.min}"
+		data.nil? ? " " : "#{data.day} #{data_month[data.month]} #{data.year} в #{data.hour+3}.#{data.min}"
 	end
 
 	def data_month
@@ -13,4 +13,5 @@ module ApplicationHelper
 	def areyounil(string)
 		string.nil? ? " " : string
 	end
+
 end

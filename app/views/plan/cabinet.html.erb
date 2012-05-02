@@ -3,14 +3,12 @@
 <div class="all_first">
 	<div class="all_body">
 		<p class="title"> Здравствуйте, <%=@user.name%> <p>
-		<a class="button_submit"> Создать новый календарный план</a>
-		
+		<%=link_to "Создать новый календарный план",  title_path(:id=>0),  :class=>"button_submit"%>		
 		<table class="cabinet">
 			<tr>
 				<th> Название дисциплины </th>
 				<th> Последняя редакция </th>
-				<th> Редакций </th>
-				<th colspan="3"> Действия </th>
+				<th colspan="4"> Действия </th>
 			</tr>
 			<%if @cabinet_plans.count==0%>
 				<tr > <td class="d9">ничего не создано</td><td class="d7"></td>
@@ -18,17 +16,12 @@
 			<%else%>
 				<%@cabinet_plans.each do |one_plan|%>
 					<tr>
-						<% if one_plan.ktitls.find(:all).count!=0 %>
-						<td class="d6"> <%=one_plan.ktitls.find_by_id(1).pregmet%> </td>
-						<td class="d7"> <%= one_plan.ktitls.find(:last).updated_at %>  </td>
-						<% else %>
-						 <td class="d6"> </td>
-						<td class="d7">  </td>
-						<% end %>
-						<td class="d8"> <%= one_plan.ktitls.find(:all).count %>  </td>
-						<td class="d8"> печатать </td>
-						<td class="d8"> редактировать </td>
-						<td class="d8"> удалить </td>
+						<td class="d6"> <%=one_plan.ktitl.nil? ? "(без названия)" : one_plan.ktitl.pregmet%> </td>
+						<td class="d7"> <%=one_plan.ktitl.nil? ? " " : format_plan_data(one_plan.ktitl.updated_at) %>  </td>
+						<td> просмотр </td>
+						<td> печатать </td>
+						<td> <%=link_to "редактировать", title_path(:id=>one_plan.id), :class=>"plan_option"%> </td>
+						<td> удалить </td>
 					</tr>
 				<%end%>
 			<%end%>

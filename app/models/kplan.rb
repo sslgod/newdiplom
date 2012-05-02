@@ -2,7 +2,7 @@ class Kplan < ActiveRecord::Base
 
 	
 	belongs_to :user
-	has_many :ktitls
+	has_one :ktitl
 	has_many :klits
 	has_many :kbodys
 
