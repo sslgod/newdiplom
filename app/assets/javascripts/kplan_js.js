@@ -3,34 +3,22 @@ $(document).ready(function(){
 		$('#info_to_hide').css('display','none');
 		$('#show_welcome').css('display','block');
 	});
-
-	$('#submit_lib').live('click',function(){
-		$.ajax({
-			type: "POST",
-			url: "/plan/save_lib",
-			data: {table:$("#i17").attr("id")},
-			success: function(html){
-				$("body").append(html)
-			}
-		});
-
+	
+	$("form").keypress(function(e) {
+  		if (e.which == 13) {
+    		return false;
+  		}
 	});
 
+	$(".tr_form").live('blur',function(){
+		 alert("Welcome to RubyDev.ru!")
+		 $.ajax({
+				type: "POST",
+				url: "/save_body",
+				data: {table:$(".body_form").attr("id")})
+		 	});
 
-	$("#exMenu #Save").live('click',function(){
-		var d = mr("#formCreate");
-		$.ajax({
-			type: "POST",
-			data: {data: d, table: $("#ex").attr("data-table")},
-			url: "/act/save",
-		});
-		$("#ex").remove();
-		$("#bg").remove();
-		window.location = "" + window.location;
 	});
-
-
-
 
 
 });

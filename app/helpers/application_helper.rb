@@ -14,10 +14,4 @@ module ApplicationHelper
 		string.nil? ? " " : string
 	end
 
-	def lib_str(plan, nom_str)
-		stroka=plan.klits.where("nomer_srt=?", nom_str).first
-		stroka_new=plan.klits.new(:nomer_srt=>nom_str)
-		stroka.nil? ? stroka_new : stroka
-	end
-
 end

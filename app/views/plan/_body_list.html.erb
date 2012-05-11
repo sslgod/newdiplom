@@ -1,0 +1,38 @@
+      <div class="all_body">
+        <table>
+          <tr>
+            <th class="d1">№ урока</th> 
+            <th class="d2">Наименование разделов и тем</th> 
+            <th class="d3">Номер недeли</th>
+            <th class="d4">Кол-во часов</th> 
+            <th class="d5">Вид занятий</th> 
+            <th class="d5">Наглядные пособия</th>
+            <th class="d5">Задание для студентов</th> 
+            <th width="195px" colspan=2>Самостоятельная работа</th>
+            <th class="d5">Удалить страницу</th>
+          </tr>
+          <%(1..26).each do |str|%>
+            <% body= @kbody.find_by_nomer_str_and_nomer_page(str, @page)%>
+            <% body=Kbody.new if body.nil?%>
+            <tr class="tr_form">
+            <%=form_for :body , :class=>"body_form", :remout=>true do |f|%>
+              <%= f.hidden_field :kplan_id%>
+              <%= f.hidden_field :nomer_page%>
+              <%= f.hidden_field :nomer_str%>
+              <td> <%= f.text_field :nomer_uroka , :maxlength => 4, :class=>"i1" %> </td> 
+              <td> <%= f.text_field :tema_zaniatia , :maxlength => 46, :class=>"i2" %> </td> 
+              <td> <%= f.text_field :nomer_nedeli  , :maxlength => 5, :class=>"i3" %> </td>  
+              <td> <%= f.text_field :kolvo_chasov , :maxlength => 5, :class=>"i3" %> </td> 
+              <td> <%= f.text_field :vid_zaniatia , :maxlength => 15, :class=>"i4" %> </td>
+              <td> <%= f.text_field :nagl_posobie , :maxlength => 15, :class=>"i4" %> </td> 
+              <td> <%= f.text_field :zadano , :maxlength => 15, :class=>"i4" %> </td> 
+              <td> <%= f.text_field :samrab_casov , :maxlength => 4, :class=>"i1" %> </td> 
+              <td> <%= f.text_field :samrab_zadanie , :maxlength => 15, :class=>"i4" %> </td>
+            <%end%>
+            </tr>
+          <% end %>
+          <% if @page>=@page_count %>
+                <td colspan=9></td> <th class="d5">Добавить страницу</th>
+              <%end%>
+        </table>
+      </div>  
