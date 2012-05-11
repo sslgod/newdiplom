@@ -216,7 +216,7 @@ p {
 						.all_title .i14 {width:40pt;}
 						.all_title .i17 {width:425pt; padding: 3px; margin: -1px 0 0; 
 							text-align:left; font-size: 10pt;}
-	.all_title .plan_option {text-decoration:none;}
+	.all_title  .plan_option a { display: block; text-decoration:none;}
 
 .all_body {
 	overflow:auto;

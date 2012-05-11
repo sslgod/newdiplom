@@ -29,38 +29,39 @@
       </table>
       <p id="title"> КАЛЕНДАРНЫЙ ПЛАН </p>
 
-      <%= form_for :ktitle, :url => { :action => "createtitle" } do |f|%>
+      <%= form_for :ktitle, :url => { :action => "save_title" } do |f|%>
+                  <%= f.hidden_field :kplan_id%>
                   <p> Учебных занятий по предмету 
-                        <%= f.text_field :pregmet , :maxlength => 40, :class=>"i1", :value=> "#{@ktitle.pregmet}" %> </p>
+                        <%= f.text_field :pregmet , :maxlength => 120, :class=>"i1"%> </p>
                   <p> Для специальности
-                        <%= f.text_field :spec , :maxlength => 40, :class=>"i2", :value=> "#{@ktitle.spec}" %> </p>
+                        <%= f.text_field :spec , :maxlength => 40, :class=>"i2"%> </p>
                   <p > Группы 
-                        <%= f.text_field :group , :maxlength => 15, :class=>"i4", :value=> "#{@ktitle.group}" %> </p>
+                        <%= f.text_field :group , :maxlength => 15, :class=>"i4"%> </p>
                   <div id="centr">
                         <p>Курс  
-                              <%= f.text_field :kurs , :maxlength => 10, :class=>"i5", :value=> "#{@ktitle.kurs}" %> </p>
+                              <%= f.text_field :kurs , :maxlength => 10, :class=>"i5" %> </p>
                          <p> Семестр 
-                              <%= f.text_field :semestr , :maxlength => 15, :class=>"i6", :value=> "#{@ktitle.semestr}" %> </p>
+                              <%= f.text_field :semestr , :maxlength => 15, :class=>"i6" %> </p>
                         <p> Учебный год 
-                              <%= f.text_field :god , :maxlength => 18, :class=>"i7", :value=> "#{@ktitle.god}" %> </p>
+                              <%= f.text_field :god , :maxlength => 18, :class=>"i7"%> </p>
                         <p> Составлено в соответствии с программой, утвержденной</p>
-                        <p><%= f.text_field :uchregd , :maxlength =>57, :class=>"i8", :value=> "#{@ktitle.uchregd}" %> </p>
+                        <p><%= f.text_field :uchregd , :maxlength =>57, :class=>"i8" %> </p>
                   </div>
                   <div id="midle">
                         <p> Число недель
-                              <%= f.text_field :ch_ned , :maxlength =>15, :class=>"i9", :value=> "#{@ktitle.ch_ned}" %> </p>
+                              <%= f.text_field :ch_ned , :maxlength =>15, :class=>"i9" %> </p>
                         <p> Число занятий на уроках  
-                              <%= f.text_field :ch_zan , :maxlength =>15, :class=>"i10", :value=> "#{@ktitle.ch_zan}" %> часов</p>
+                              <%= f.text_field :ch_zan , :maxlength =>15, :class=>"i10"%> часов</p>
                         <p> Лабораторные работы
-                              <%= f.text_field :ch_labrab , :maxlength =>15, :class=>"i11", :value=> "#{@ktitle.ch_labrab}" %> часов</p>
+                              <%= f.text_field :ch_labrab , :maxlength =>15, :class=>"i11" %> часов</p>
                         <p> Курсовое проектирование  
-                              <%= f.text_field :ch_kprtk , :maxlength =>15, :class=>"i12", :value=> "#{@ktitle.ch_kprtk}" %> часов</p>
+                              <%= f.text_field :ch_kprtk , :maxlength =>15, :class=>"i12" %> часов</p>
                         <p hidden="<%= @ktitle.ch_all==0 ? true : false %>" > Всего 
-                              <%= f.text_field :ch_all , :maxlength => 15, :class=>"i13", :value=> "#{@ktitle.ch_all}" %> часов </p>
+                              <%= f.text_field :ch_all , :maxlength => 15, :class=>"i13" %> часов </p>
                         <p> Самостоятельная нагрузка студентов 
-                              <%= f.text_field :ch_smr , :maxlength =>15, :class=>"i14", :value=> "#{@ktitle.ch_smr}" %> </p>
+                              <%= f.text_field :ch_smr , :maxlength =>15, :class=>"i14" %> </p>
                   </div>
-                  <%= f.submit %>
+                  <%= f.submit "Сохранить" %>
       <% end %>
    </div>
 
