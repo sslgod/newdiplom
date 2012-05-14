@@ -10,6 +10,7 @@ end
 # Table name: ktitls
 #
 #  id         :integer         not null, primary key
+#  kplan_id   :integer
 #  pregmet    :string(255)
 #  spec       :string(255)
 #  group      :string(255)

@@ -12,12 +12,6 @@ $(document).ready(function(){
 
 	$(".tr_form").live('blur',function(){
 		 alert("Welcome to RubyDev.ru!")
-		 $.ajax({
-				type: "POST",
-				url: "/save_body",
-				data: {table:$(".body_form").attr("id")})
-		 	});
-
 	});
 
 

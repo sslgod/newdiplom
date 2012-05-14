@@ -6,18 +6,18 @@
        <div id="header">
             <p> СПИСОК  ЛИТЕРАТУРЫ </p>
        </div>
-       <%= form_tag :action => :save_lib do %>
-          <%= hidden_field_tag "id", @id%>
+       <%= form_for :klib, :url => { :action => "save_lib" }  do |f|%>
+          <%= f.hidden_field :kplan_id%>
           <%= @error_message %>
-          <% (0..23).each do |str| %>
-            <%= text_field_tag "klib#{str+1}", @klib_mas[str].literatura , :maxlength => 68, :class=>"i17" %> 
+          <% (1..24).each do |str| %>
+            <%= f.text_field "literatura#{str}", :maxlength => 80, :class=>"i17" %> 
           <%end%>
-          <%= submit_tag %>
+          <%= submit_tag "Сохранить"%>
         <% end %>
 
         <p> </p>
    </div>
 </div>
 <div>
-  <a class="submit_button" id="submit_lib">Сохранить</a>
+  Место для кнопок
 </div>

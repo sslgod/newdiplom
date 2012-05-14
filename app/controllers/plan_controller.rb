@@ -12,7 +12,7 @@ class PlanController < ApplicationController
           def createuser  #создание пользователя
             @user = User.new(params[:user])
             if @user.save
-              render 'index'
+              redirect_to cabinet_path
             else
               render 'index'
             end
@@ -26,19 +26,19 @@ class PlanController < ApplicationController
               render 'new'
             else
               sign_in user
-              render 'index'
+              redirect_to cabinet_path
             end
-          end
-
-          def cabinet
-            @user=User.find(current_user.id)
-            @cabinet_plans=@user.kplans.all
           end
 
           def create?(model)
             model.save
           end
     
+  def cabinet
+    @user=User.find(current_user.id)
+    @cabinet_plans=@user.kplans.all
+  end
+
   def kp_titl
     id=params[:id]
     user=User.find(current_user.id)
@@ -114,25 +114,18 @@ class PlanController < ApplicationController
       end
 
   def kp_lit
-    @id=params[:id]
-    klib=Klit.where("kplan_id=?", @id)
-    @klib_mas=Array.new
-    (1..24).each do |nomer_str|
-      str=klib.where("nomer_srt=?", nomer_str).first
-      @klib_mas<<(str.nil? ? Klit.new : str )
-    end
+    id=params[:id]
+    @klib=Klit.find_by_kplan_id(id)
     @error_messages=""
   end
 
       def save_lib
-        plan_id=params[:id].to_i
-        (1..24).each do |lib|
-          one_lib=Klit.new
-          one_lib=Klit.find_by_nomer_srt_and_kplan_id(lib, plan_id)
-          one_lib=Klit.new(:kplan_id=>plan_id, :nomer_srt=>lib) if one_lib.nil?
-          one_lib.literatura=params["klib#{lib}"]
-          one_lib.save
+        plan_id=params[:klib][:kplan_id].to_i
+        lib=Klit.find_by_kplan_id(plan_id)
+        (1..24).each do |str|
+          lib["literatura#{str}"]=params[:klib]["literatura#{str}"]
         end
+        lib.save
         redirect_to body_path(:id=>plan_id)
       end
 
@@ -140,13 +133,13 @@ class PlanController < ApplicationController
   def kp_body
     id=params[:id]
     @kbody=Kbody.where("kplan_id=?", id)
-    @page_count= @kbody.empty? ? 0 : @page_count=@kbody.maximum("nomer_page")
+    @page_count= @kbody.empty? ? 0 : @kbody.maximum("nomer_page")
   end
 
   def kp_view 
     id=params[:id]
     @title=Ktitl.find_by_kplan_id(id)
-    @body=Kbody.find_by_kplan_id(id)
+    @body=Kbody.where("kplan_id=?", id)
     @lib=Klit.find_by_kplan_id(id)
   end
 
@@ -174,6 +167,8 @@ class PlanController < ApplicationController
 
       def test_db #Заполнение бд тестовой инфой
         b=1
+        a=Kplan.new(user_id:1)
+        a.save
         a=Ktitl.new
           a.kplan_id=1
           a.pregmet="Очень длинное нзвание предмета, которое не уместилось в одну строку"
@@ -189,56 +184,60 @@ class PlanController < ApplicationController
           a.ch_kprtk=12
           a.ch_smr=20
         a.save
+        a=Klit.new
+        a.kplan_id=1
         (1..20).each do |i|
           if i.odd?
-            a=Klit.new
-            a.kplan_id=1
-            a.nomer_srt=i
-            a.literatura="Описание источника из которого был взят для материала лекций"
-            a.save
+            a["literatura#{i}"]="Описание источника из которого был взят для материала лекций"
           else
             a=Klit.new
-            a.kplan_id=1
-            a.nomer_srt=i
-            a.literatura="продолжение описание литературы, которое не уместилось в первую строку"
-            a.save
+            a["literatura#{i}"]="продолжение описание литературы, которое не уместилось в первую строку"
           end
         end
-        Kbody.all.each do |a|
-          if a.nomer_str.odd?
-            a.nomer_uroka=b+(a.nomer_str/2)+a.nomer_page-1
-            a.tema_zaniatia="#{a.nomer_page} - #{a.nomer_str} - #{a.nomer_uroka} Здесь написана тема занятия - первая строка"
-            a.nomer_nedeli=a.nomer_uroka/2+1
-            a.kolvo_chasov=rand((3)+1)*2
-            a.vid_zaniatia="Вид занятия #{a.nomer_page}#{a.nomer_str}"
-            a.nagl_posobie="Наглядное посо-"
-            a.zadano="Задано студен-"
+        a.save
+
+    b=0
+    (1..5).each do |str|
+      a=Kbody.new(kplan_id:1, nomer_page:str)
+      (1..26).each do |i|
+        if i.odd?
+            b=b+1
+            a["nomer_uroka#{i}"]="#{b}"
+            a["tema_zaniatia#{i}"]="#{str} - #{i} - #{a["nomer_uroka#{i}"]} Здесь написана тема занятия - первая строка"
+            a["nomer_nedeli#{i}"]=b/2+1
+            a["kolvo_chasov#{i}"]=rand((3)+1)*2
+            a["vid_zaniatia#{i}"]="Вид занятия #{str}-#{i}"
+            a["nagl_posobie#{i}"]="Наглядное посо-"
+            a["zadano#{i}"]="Задано студен-"
             c=rand(2)*2
             if c>0
-              a.samrab_casov=c.to_s
-              a.samrab_zadanie="Задание для са-"
+              a["samrab_casov#{i}"]=c.to_s
+              a["samrab_zadanie#{i}"]="Задание для са-"
             else
-              a.samrab_casov=""
-              a.samrab_zadanie=""
+              a["samrab_casov#{i}"]=""
+              a["samrab_zadanie#{i}"]=""
             end
-          else
-            a.nomer_uroka=""
-            a.tema_zaniatia="а дальше идет вторая строка текста, продолжение #{a.nomer_page} - #{a.nomer_str}"
-            a.nomer_nedeli=""
-            a.kolvo_chasov=""
-            a.vid_zaniatia=""
-            a.nagl_posobie="бие для #{a.nomer_page} - #{a.nomer_str}"
-            a.zadano="там надом #{a.nomer_page} - #{a.nomer_str}"
-            a.samrab_casov=""
-            c=Kbody.where("nomer_page =?", a.nomer_page).find_by_nomer_str(a.nomer_str-1).samrab_casov
-            if c.empty?
-              a.samrab_zadanie=""
-            else
-              a.samrab_zadanie="мостоятельной#{a.nomer_str}"
+        else
+            a["nomer_uroka#{i}"]=""
+            a["tema_zaniatia#{i}"]="а дальше идет вторая строка текста, продолжение #{str} - #{i}"
+            a["nomer_nedeli#{i}"]=""
+            a["kolvo_chasov#{i}"]=""
+            a["vid_zaniatia#{i}"]=""
+            a["nagl_posobie#{i}"]="бие для #{str} - #{i}"
+            a["zadano#{i}"]="там надом #{str} - #{i}"
+            a["samrab_casov#{i}"]=""
+            if i>1
+              if a["samrab_zadanie#{i-1}"].empty?
+                a["samrab_zadanie#{i}"]=""
+              else
+                a["samrab_zadanie#{i}"]="мостоятельной#{i}"
+              end
             end
-          end
-          a.save
         end
+        a.save
+      end
+    end
+
       end
 
   
