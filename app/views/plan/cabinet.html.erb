@@ -3,7 +3,8 @@
 <div class="all_first">
 	<div class="all_body">
 		<p class="title"> Здравствуйте, <%=@user.name%> <p>
-		<%= link_to "Создать новый календарный план",  title_path(:id=>0),  :class=>"button_submit"%>		
+		<%= link_to "Создать новый календарный план",  title_path, :class=>"button_submit"%>	
+		
 		<table class="cabinet">
 			<tr>
 				<th> Название дисциплины </th>
@@ -20,7 +21,7 @@
 						<td class="d7"> <%=one_plan.ktitl.nil? ? " " : format_plan_data(one_plan.ktitl.updated_at) %>  </td>
 						<td class="plan_option"> просмотр </td>
 						<td class="plan_option"> печатать </td>
-						<td class="plan_option"> <%=link_to "редактировать", title_path(:id=>one_plan.id)%> </td>
+						<td class="plan_option"> <%=link_to "редактировать", title_path(one_plan.id)%> </td>
 						<td class="plan_option"> удалить </td>
 					</tr>
 				<%end%>
@@ -28,10 +29,3 @@
 		</table>
 	</div>
 </div>
-
-<%=params[:id]%>
-
-
-
-
-

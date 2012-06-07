@@ -2,20 +2,21 @@
         <table>
           <% @body= @kbody.find_by_nomer_page(@page)%>
           <% @body= @body.nil? ? Kbody.new : @body %>
-          <tr>
-            <th class="d1">№ урока</th> 
-            <th class="d2">Наименование разделов и тем</th> 
-            <th class="d3">Номер недeли</th>
-            <th class="d4">Кол-во часов</th> 
-            <th class="d5">Вид занятий</th> 
-            <th class="d5">Наглядные пособия</th>
-            <th class="d5">Задание для студентов</th> 
-            <th width="195px" colspan=2>Самостоятельная работа</th>
-            <th class="d5">Удалить страницу</th>
-          </tr>
           <%=form_for :body do |f|%>
             <%= f.hidden_field :kplan_id%>
             <%= f.hidden_field :nomer_page%>
+
+            <tr>
+              <th class="d1">№ урока</th> 
+              <th class="d2">Наименование разделов и тем</th> 
+              <th class="d3">Номер недeли</th>
+              <th class="d4">Кол-во часов</th> 
+              <th class="d5">Вид занятий</th> 
+              <th class="d5">Наглядные пособия</th>
+              <th class="d5">Задание для студентов</th> 
+              <th width="195px" colspan=2>Самостоятельная работа</th>
+              <th class="d5">Удалить страницу</th>
+            </tr>
             <%(1..26).each do |str|%>
             <tr>
               <td> <%= f.text_field "nomer_uroka#{str}" , :maxlength => 4, :class=>"i1" %> </td> 

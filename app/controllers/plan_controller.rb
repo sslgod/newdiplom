@@ -41,62 +41,52 @@ class PlanController < ApplicationController
 
   def kp_titl
     id=params[:id]
-    user=User.find(current_user.id)
+    user=current_user.id
+    if id.nil?
+      id=plan_new(user)
+    else
+      id=plan_copy(id, user)
+    end
     @ktitle=Ktitl.find_by_kplan_id(id)
-#    kplan = user.kplans.new
-#      kplan.predmet_comissia=user.predmet_comissia
-#      kplan.save
-#    if id.to_i==0
-#      @ktitle=Ktitl.new
-#      @ktitle.kplan_id=kplan.id
-#    else
-#      @ktitle=Ktitl.find_by_kplan_id(id)
-#      ktitle_new=Ktitl.new
-#      ktitle_old=Ktitl.find_by_kplan_id(id) #фиг знает, как это сделать по-другому
-#          ktitle_new.kplan_id=kplan.id
-#          ktitle_new.pregmet=ktitle_old.pregmet 
-#          ktitle_new.spec=ktitle_old.spec 
-#          ktitle_new.group=ktitle_old.group 
-#          ktitle_new.kurs=ktitle_old.kurs 
-#          ktitle_new.semestr=ktitle_old.semestr 
-#          ktitle_new.god=ktitle_old.god 
-#          ktitle_new.uchregd=ktitle_old.uchregd 
-#          ktitle_new.ch_ned=ktitle_old.ch_ned 
-#          ktitle_new.ch_zan=ktitle_old.ch_zan 
-#          ktitle_new.ch_labrab=ktitle_old.ch_labrab 
-#          ktitle_new.ch_kprtk=ktitle_old.ch_kprtk 
-#          ktitle_new.ch_smr=ktitle_old.ch_smr
-#        ktitle_new.save
- #     Klit.where("kplan_id=?", id).each do |klit_old|
- #       klit_new=Klit.new
-#        klit_new=klit_old
-#        klit_new.kplan_id=kplan.id
-#        klit_new.nomer_srt=klit_old.nomer_srt
-#        klit_new.literatura=klit_old.literatura
-#        klit_new.save
-#      end
-#      Kbody.where("kplan_id=?", id).each do |kbody_old|
-#        kbody_new=Kbody.new
-#        kbody_new.kplan_id=kplan.id
-#        kbody_new.nomer_page=kbody_old.nomer_page
-#        kbody_new.nomer_str=kbody_old.nomer_str
-#        kbody_new.nomer_uroka=kbody_old.nomer_uroka
-#        kbody_new.tema_zaniatia=kbody_old.tema_zaniatia
-#        kbody_new.nomer_nedeli=kbody_old.nomer_nedeli
-#        kbody_new.kolvo_chasov=kbody_old.kolvo_chasov
-#        kbody_new.vid_zaniatia=kbody_old.vid_zaniatia
-#        kbody_new.nagl_posobie=kbody_old.nagl_posobie
-#        kbody_new.zadano=kbody_old.zadano
-#        kbody_new.samrab_casov=kbody_old.samrab_casov
-#        kbody_new.samrab_zadanie=kbody_old.samrab_zadanie
-#        kbody_new.save
-#      end    
-#    end
-    @ktitle["ch_all"]=@ktitle.ch_zan.to_i + @ktitle.ch_labrab.to_i + @ktitle.ch_kprtk.to_i
   end
+
+      def plan_copy(plan_id, user_id)
+        plan=Kplan.new(user_id:user_id, predmet_comissia:User.find(user_id).predmet_comissia)
+        plan.save
+        new_id=plan.id
+        title=Ktitl.find_by_kplan_id(plan_id).dup
+        title.kplan_id=new_id
+        title.save
+        lib=Klit.find_by_kplan_id(plan_id).dup
+        lib.kplan_id=new_id
+        lib.save
+        body=Kbody.where("kplan_id=?", plan_id)
+        body.each do |page|
+          newpage=page.dup
+          newpage.kplan_id=new_id
+          newpage.save
+        end
+        new_id
+      end
+
+      def plan_new(user_id)
+        plan=Kplan.new(user_id:user_id, predmet_comissia:User.find(user_id).predmet_comissia)
+        plan.save
+        new_id=plan.id
+        title=Ktitl.new(kplan_id:new_id)
+        title.save
+        lib=Klit.new(kplan_id:new_id)
+        lib.save
+        body=Kbody.new(kplan_id:new_id)
+        body.save
+        new_id
+       end
 
       def save_title
         plan_title=Ktitl.find_by_kplan_id(params[:ktitle][:kplan_id])
+        if plan_title.nil?
+          plan_title=Ktitl.new(kplan_id:params[:ktitle][:kplan_id])
+        end
         plan_title.pregmet=params[:ktitle][:pregmet]
         plan_title.spec=params[:ktitle][:spec]
         plan_title.group=params[:ktitle][:group]
@@ -122,6 +112,9 @@ class PlanController < ApplicationController
       def save_lib
         plan_id=params[:klib][:kplan_id].to_i
         lib=Klit.find_by_kplan_id(plan_id)
+        if lib.nil?
+          lib=Ktitl.new(kplan_id:params[:klib][:kplan_id])
+        end
         (1..24).each do |str|
           lib["literatura#{str}"]=params[:klib]["literatura#{str}"]
         end
@@ -136,9 +129,16 @@ class PlanController < ApplicationController
     @page_count= @kbody.empty? ? 0 : @kbody.maximum("nomer_page")
   end
 
+    def save_body
+    end
+
+    def delete_body
+    end
+
   def kp_view 
     id=params[:id]
     @title=Ktitl.find_by_kplan_id(id)
+        # => @ktitle["ch_all"]=@ktitle.ch_zan.to_i + @ktitle.ch_labrab.to_i + @ktitle.ch_kprtk.to_i
     @body=Kbody.where("kplan_id=?", id)
     @lib=Klit.find_by_kplan_id(id)
   end
