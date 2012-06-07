@@ -106,6 +106,7 @@ PLATFORMS
 DEPENDENCIES
   annotate (~> 2.4.1.beta)
   coffee-rails (~> 3.2.1)
+  execjs
   jquery-rails
   json
   pg
