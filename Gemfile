@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.2'
-#gem 'sqlite3'
+gem 'sqlite3'
 #gem 'mysql2'
-gem 'pg'
+#gem 'pg'
 gem 'json'
 gem 'annotate', '~> 2.4.1.beta' 
 gem 'jquery-rails' 
